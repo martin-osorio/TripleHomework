@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.graphics.drawable.StateListDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,17 +19,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setMyConfig();
+    }
+
+    private void setMyConfig() {
+        /**/
+        /*  ALL this code was derived directly from an example online because literally nobody in this house knew what the heck an SLD was and it took all of us like on hour to figure out
+        /**/
         int buttonPressedResourceID = R.drawable.state_one;
         int buttonDefaultResourceID = R.drawable.state_two;
 
         Resources resources = getApplicationContext().getResources();
 
         StateListDrawable states = new StateListDrawable();
-        states.addState(new int[] {android.R.attr.state_pressed}, resources.getDrawable(buttonPressedResourceID));
-        states.addState(new int[] {android.R.attr.state_focused}, resources.getDrawable(buttonPressedResourceID));
-        states.addState(new int[] {}, resources.getDrawable(buttonDefaultResourceID));
+        states.addState(new int[]{android.R.attr.state_pressed}, resources.getDrawable(buttonPressedResourceID));
+        states.addState(new int[]{android.R.attr.state_focused}, resources.getDrawable(buttonPressedResourceID));
+        states.addState(new int[]{}, resources.getDrawable(buttonDefaultResourceID));
 
         ((Button) findViewById(R.id.Button_SLDExample)).setBackgroundDrawable(states);
+        /**/
     }
 
     //this code was derived from an example online
@@ -35,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_main);
+
+        setMyConfig();
 
         TextView_OrientationLabel = (TextView) findViewById(R.id.TextView_OrientationLabel);
         int orientation = newConfig.orientation;
@@ -44,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView_OrientationLabel.setText("My orientation is LANDSCAPE");
                 break;
             case Configuration.ORIENTATION_PORTRAIT:
-                TextView_OrientationLabel.setText("My orientation is  ");
+                TextView_OrientationLabel.setText("My orientation is  PORTRAIT");
                 break;
         }
     }
